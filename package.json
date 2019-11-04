@@ -1,0 +1,19 @@
+{
+  "name": "learn-nodejs-blog-project",
+  "version": "1.0.0",
+  "description": "learn nodejs blog project",
+  "main": "bin/server.js",
+  "repository": "https://github.com/rzning/learn-nodejs-blog-project.git",
+  "author": "Zhenning Ruan <rzning@outlook.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon ./bin/server.js",
+    "prd": "cross-env NODE_ENV=production node ./bin/server.js",
+    "server": "node bin/server"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "nodemon": "^1.19.4"
+  }
+}
