@@ -1,7 +1,6 @@
 
-function handleBlogRouter (request, reponse) {
-  const { method, url } = request
-  const path = url.split('?')[0]
+function handleBlogRouter (payload) {
+  const { method, path, query } = payload
 
   if (method === 'GET' && path === '/api/blog/getList') {
     return {

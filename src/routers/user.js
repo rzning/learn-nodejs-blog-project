@@ -1,6 +1,5 @@
-function handleUserRouter (request, reponse) {
-  const { method, url } = request
-  const path = url.split('?')[0]
+function handleUserRouter (payload) {
+  const { method, path, query } = payload
 
   if (method === 'POST' && path === '/api/user/login') {
     return {
