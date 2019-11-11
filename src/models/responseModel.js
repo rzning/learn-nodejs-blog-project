@@ -33,7 +33,7 @@ class SuccessModel extends BaseModel {
 class ErrorModel extends BaseModel {
   constructor (data, message) {
     super(data, message)
-    this.error = -1
+    this.error = 1
   }
 }
 

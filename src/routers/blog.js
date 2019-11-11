@@ -1,17 +1,24 @@
+const { getList, getDetail } = require('../controllers/blog')
+const { SuccessModel, ErrorModel } = require('../models/responseModel')
 
 function handleBlogRouter (payload) {
   const { method, path, query } = payload
 
   if (method === 'GET' && path === '/api/blog/getList') {
-    return {
-      message: '获取博客列表'
+    const parameter = {
+      autor: query.autor || '',
+      keyword: query.keyword || ''
     }
+    const result = getList(parameter)
+    return new SuccessModel(result, '获取博客列表')
   }
 
   if (method === 'GET' && path === '/api/blog/getDetail') {
-    return {
-      message: '获取博客详情'
+    const parameter = {
+      id: query.id
     }
+    const result = getDetail(parameter)
+    return new SuccessModel(result, '获取博客详情')
   }
 
   if (method === 'POST' && path === '/api/blog/new') {
