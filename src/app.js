@@ -16,7 +16,37 @@ function getPayload (request) {
   return { method, path, query }
 }
 
-function serverHandle (request, response) {
+/**
+ * 处理 postData
+ * @param {Object} request 请求对象
+ */
+function getPostData (request) {
+  const promise = new Promise((resolve, reject) => {
+    if (request.method !== 'POST') {
+      resolve({})
+      return
+    }
+    if (request.headers['content-type'] !== 'application/json') {
+      resolve({})
+      return
+    }
+    const dataList = []
+    request.on('data', chunk => {
+      dataList.push(chunk)
+    })
+    request.on('end', () => {
+      if (dataList.length === 0) {
+        resolve({})
+        return
+      }
+      const postData = JSON.parse(dataList.join(''))
+      resolve(postData)
+    })
+  })
+  return promise
+}
+
+async function serverHandle (request, response) {
   // 设置返回格式 JSON
   response.setHeader('Content-type', 'application/json')
 
@@ -25,6 +55,9 @@ function serverHandle (request, response) {
 
   // 获取请求参数信息
   const payload = getPayload(request)
+
+  // 获取 body 数据
+  payload.body = await getPostData(request)
 
   // 处理 blog 路由
   const blogData = handleBlogRouter(payload)

@@ -1,4 +1,4 @@
-const { getList, getDetail } = require('../controllers/blog')
+const { getList, getDetail, createBlog } = require('../controllers/blog')
 const { SuccessModel, ErrorModel } = require('../models/responseModel')
 
 function handleBlogRouter (payload) {
@@ -22,9 +22,11 @@ function handleBlogRouter (payload) {
   }
 
   if (method === 'POST' && path === '/api/blog/new') {
-    return {
-      message: '新建一篇博客'
+    const param = {
+      blogData: payload.body
     }
+    const result = createBlog(param)
+    return new SuccessModel(result,'新建一篇博客')
   }
 
   if (method === 'POST' && path === '/api/blog/update') {

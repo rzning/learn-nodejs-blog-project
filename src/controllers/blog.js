@@ -29,7 +29,18 @@ function getDetail (query) {
   }
 }
 
+function createBlog ({ blogData = {} }) {
+  // 新建博客处理 blogData : { title, content }
+  console.log('Create a new blog.', blogData)
+
+  // 返回新博客 ID
+  return {
+    id: 3
+  }
+}
+
 module.exports = {
   getList,
-  getDetail
+  getDetail,
+  createBlog
 }
