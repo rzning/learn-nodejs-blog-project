@@ -39,8 +39,22 @@ function createBlog ({ blogData = {} }) {
   }
 }
 
+function updateBlog ({ id, blogData = {} }) {
+  console.log('Update a blog.', id, blogData)
+
+  return true
+}
+
+function deleteBlog ({ id }) {
+  console.log('Delete a blog.', id)
+
+  return true
+}
+
 module.exports = {
   getList,
   getDetail,
-  createBlog
+  createBlog,
+  updateBlog,
+  deleteBlog
 }

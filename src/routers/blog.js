@@ -1,4 +1,4 @@
-const { getList, getDetail, createBlog } = require('../controllers/blog')
+const { getList, getDetail, createBlog, updateBlog, deleteBlog } = require('../controllers/blog')
 const { SuccessModel, ErrorModel } = require('../models/responseModel')
 
 function handleBlogRouter (payload) {
@@ -26,19 +26,30 @@ function handleBlogRouter (payload) {
       blogData: payload.body
     }
     const result = createBlog(param)
-    return new SuccessModel(result,'新建一篇博客')
+    return new SuccessModel(result, '新建一篇博客')
   }
 
   if (method === 'POST' && path === '/api/blog/update') {
-    return {
-      message: '更新一篇博客'
+    const param = {
+      id: query.id,
+      blogData: payload.body
     }
+    const result = updateBlog(param)
+    if (result) {
+      return new SuccessModel('成功更新一篇博客')
+    }
+    return new ErrorModel('更新博客失败')
   }
 
   if (method === 'POST' && path === '/api/blog/delete') {
-    return {
-      message: '删除一篇博客'
+    const param = {
+      id: query.id
     }
+    const result = deleteBlog(param)
+    if (result) {
+      return new SuccessModel('成功删除一篇博客')
+    }
+    return new ErrorModel('删除博客失败')
   }
 }
 
